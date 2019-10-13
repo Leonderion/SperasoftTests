@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -29,6 +30,7 @@ public class AppTest {
         // Create a new instance of the Firefox driver
 
         driver = new ChromeDriver(option);
+        wait = new WebDriverWait(driver, 5, 1000);
     }
 
     public void goToHomePage()
@@ -39,11 +41,10 @@ public class AppTest {
 
     public void goToSignIn()
     {
-        wait = new WebDriverWait(driver, 5, 1000);
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("a.login")));
-        driver.findElement(By.cssSelector("a.login")).click();
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("h1.page-heading")));
+        wait.until((WebDriver d) -> d.findElement(By.cssSelector("a.login"))).click();
+
+        wait.until((WebDriver d) -> d.findElement(By.cssSelector("h1.page-heading")));
         String header = driver.findElement(By.cssSelector("h1.page-heading")).getText();
 
         // Verify that header equals "AUTHENTICATION"
@@ -58,10 +59,11 @@ public class AppTest {
     }
 
     public void inputGender() throws InterruptedException {
-        wait = new WebDriverWait(driver, 5, 5000);
+        //wait = new WebDriverWait(driver, 5, 5000);
         //wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("id_gender1")));
 
         //driver.findElement(By.id("id_gender1")).click();
+
         myClickId("id_gender1");
     }
 
@@ -91,9 +93,16 @@ public class AppTest {
     }
 
     public void inputDateOfBirth(){
+
+        new Select(driver.findElement(By.id("days"))).selectByValue("10");
+        new Select(driver.findElement(By.id("months"))).selectByValue("5");
+        new Select(driver.findElement(By.id("years"))).selectByValue("2000");
+        /*
         driver.findElement(By.id("days")).sendKeys("10");
         driver.findElement(By.id("months")).sendKeys("May");
         driver.findElement(By.id("years")).sendKeys("2000");
+
+         */
     }
 
     public void inputCompany(String company){
@@ -112,7 +121,12 @@ public class AppTest {
     }
 
     public void inputState(){
+        new Select(driver.findElement(By.id("id_state"))).selectByValue("2");
+
+        /*
         driver.findElement(By.id("id_state")).sendKeys("Alaska");
+
+         */
     }
 
     public void inputPostcode(String postcode){
@@ -121,7 +135,12 @@ public class AppTest {
     }
 
     public void inputCountry(){
+        new Select(driver.findElement(By.id("id_country"))).selectByValue("21");
+
+        /*
         driver.findElement(By.id("id_country")).sendKeys("United States");
+
+         */
     }
 
     public void inputOther(String other){
@@ -152,7 +171,8 @@ public class AppTest {
     @DataProvider(name = "data-provider")
     public Object[][] dataProviderMethod() {
         Date date = new Date();
-        String email = date.toString().replace(' ', '_').replace(':', '_') + "@test.test";
+        //String email = date.toString().replace(' ', '_').replace(':', '_') + "@test.test";
+        String email = "test_" + System.currentTimeMillis() +  "@test.test";
         return new Object[][] { { email } };
     }
 
