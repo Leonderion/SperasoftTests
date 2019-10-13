@@ -1,4 +1,4 @@
-package com.bakulin.app;
+package com.bakulin.model;
 
 public class User {
     private String firstname;
@@ -89,5 +89,4 @@ public class User {
 
         public User build() { return User.this; }
     }
-
 }
