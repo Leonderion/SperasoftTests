@@ -12,9 +12,10 @@ public class AuthenticationPage extends Page {
         PageFactory.initElements(driver, this);
     }
 
-    public void open() {
+    public AuthenticationPage open() {
 
         driver.get("http://automationpractice.com/index.php?controller=authentication&back=my-account");
+        return this;
     }
 
     @FindBy(id = "email_create")

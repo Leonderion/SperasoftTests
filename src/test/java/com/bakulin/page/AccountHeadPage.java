@@ -12,9 +12,10 @@ public class AccountHeadPage extends Page{
         PageFactory.initElements(driver, this);
     }
 
-    public void open() {
+    public AccountHeadPage open() {
 
         driver.get("http://automationpractice.com/index.php?controller=my-account");
+        return this;
     }
 
     public String getHeader() {
@@ -23,5 +24,12 @@ public class AccountHeadPage extends Page{
         String header = driver.findElement(By.cssSelector("h1.page-heading")).getText();
 
         return  header;
+    }
+
+    public void logout() {
+        if (driver.findElements(By.cssSelector("a.logout")).size() > 0) {
+            driver.findElement(By.cssSelector("a.logout")).click();
+            wait.until((WebDriver d) -> d.findElement(By.id("SubmitCreate")));
+        }
     }
 }

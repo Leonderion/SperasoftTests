@@ -70,11 +70,11 @@ public class User {
         return additional;
     }
 
-    public String getPhonehome() {
+    public String getPhoneHome() {
         return phonehome;
     }
 
-    public String getPhonemobile() {
+    public String getPhoneMobile() {
         return phonemobile;
     }
 
@@ -100,8 +100,8 @@ public class User {
         public Builder withCity(String city) { User.this.city = city; return this; }
         public Builder withPostcode(String postcode) { User.this.postcode = postcode; return this; }
         public Builder withAdditional(String additional) { User.this.additional = additional; return this; }
-        public Builder withPhonehome(String phonehome) { User.this.phonehome = phonehome; return this; }
-        public Builder withPhonemobile(String phonemobile) { User.this.phonemobile = phonemobile; return this; }
+        public Builder withPhoneHome(String phonehome) { User.this.phonehome = phonehome; return this; }
+        public Builder withPhoneMobile(String phonemobile) { User.this.phonemobile = phonemobile; return this; }
         public Builder withAlias(String alias) { User.this.alias = alias; return this; }
 
         public User build() { return User.this; }

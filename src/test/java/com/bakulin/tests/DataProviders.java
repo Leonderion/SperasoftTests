@@ -25,8 +25,8 @@ public class DataProviders {
                         .withPostcode("40012")
                         .withCountry("21")
                         .withAdditional("info")
-                        .withPhonehome("53329")
-                        .withPhonemobile("666666")
+                        .withPhoneHome("53329")
+                        .withPhoneMobile("666666")
                         .withAlias("alias")
                         .build()
                 }

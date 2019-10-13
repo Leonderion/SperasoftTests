@@ -35,7 +35,9 @@ public class Application {
         driver.quit();
     }
 
-    public void registerNewUser(User user) throws InterruptedException {
+    public void registerNewUserAllField(User user) throws InterruptedException {
+
+        accountHeadPage.logout();
 
         guestPage.open();
         guestPage.goToAuthenticationPage();
@@ -64,8 +66,47 @@ public class Application {
         registrationPage.postcodeInput.sendKeys(user.getPostcode());
         registrationPage.inputCountry(user.getCountry());
         registrationPage.otherInput.sendKeys(user.getAdditional());
-        registrationPage.phoneHomeInput.sendKeys(user.getPhonehome());
-        registrationPage.phoneMobileInput.sendKeys(user.getPhonemobile());
+        registrationPage.phoneHomeInput.sendKeys(user.getPhoneHome());
+        registrationPage.phoneMobileInput.sendKeys(user.getPhoneMobile());
+        registrationPage.aliasInput.clear();
+        registrationPage.aliasInput.sendKeys(user.getAlias());
+        registrationPage.registerButton.click();
+    }
+
+    public void registerNewUserAllFieldRequiredFieldsOnly(User user) throws InterruptedException {
+
+        accountHeadPage.logout();
+
+        guestPage.open();
+        guestPage.goToAuthenticationPage();
+
+        authenticationPage.emailInput.sendKeys(user.getEmail());
+        authenticationPage.createAccountButton.click();
+
+//        registrationPage.inputGender(user.getGender());
+        registrationPage.waitPage();
+        registrationPage.firstnameInput.sendKeys(user.getFirstname());
+        registrationPage.lastnameInput.sendKeys(user.getLastname());
+        registrationPage.passwordInput.sendKeys(user.getPassword());
+        registrationPage.emailInput.clear();
+        registrationPage.emailInput.sendKeys(user.getEmail());
+//        registrationPage.inputDateOfBirth(user.getDayOfBirth(), user.getMouthOfBirth(), user.getYearOfBirth());
+//        registrationPage.newsletterInput.click();
+//        registrationPage.offersInput.click();
+        registrationPage.firstnameAddressInput.clear();
+        registrationPage.firstnameAddressInput.sendKeys(user.getFirstname());
+        registrationPage.lastnameAddressInput.clear();
+        registrationPage.lastnameAddressInput.sendKeys(user.getLastname());
+//        registrationPage.companyInput.sendKeys(user.getCompany());
+        registrationPage.addressInput.sendKeys(user.getAddress());
+//        registrationPage.addresstwoInput.sendKeys(user.getAddresstwo());
+        registrationPage.cityInput.sendKeys(user.getCity());
+        registrationPage.inputState(user.getState());
+        registrationPage.postcodeInput.sendKeys(user.getPostcode());
+        registrationPage.inputCountry(user.getCountry());
+//        registrationPage.otherInput.sendKeys(user.getAdditional());
+//        registrationPage.phoneHomeInput.sendKeys(user.getPhoneHome());
+        registrationPage.phoneMobileInput.sendKeys(user.getPhoneMobile());
         registrationPage.aliasInput.clear();
         registrationPage.aliasInput.sendKeys(user.getAlias());
         registrationPage.registerButton.click();

@@ -5,7 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 
 public class RegistrationPage extends Page {
 
@@ -14,8 +16,9 @@ public class RegistrationPage extends Page {
         PageFactory.initElements(driver, this);
     }
 
-    public void open() {
+    public RegistrationPage open() {
         driver.get("http://automationpractice.com/index.php?controller=authentication&back=my-account#account-creation");
+        return this;
     }
 
     @FindBy(id = "customer_firstname")
@@ -71,6 +74,10 @@ public class RegistrationPage extends Page {
 
     @FindBy(id = "submitAccount")
     public WebElement registerButton;
+
+    public void waitPage() {
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("id_gender1")));
+    }
 
     public void inputGender(String gender) throws InterruptedException {
         if (gender.equals("Mr")) {

@@ -7,9 +7,17 @@ import org.testng.annotations.Test;
 public class RegistrationTests extends TestBase {
 
     @Test (dataProvider = "data-provider", dataProviderClass = DataProviders.class)
-    public void createAnAccount(User user) throws InterruptedException {
+    public void createAnAccountAllField(User user) throws InterruptedException {
 
-        app.registerNewUser(user);
+        app.registerNewUserAllField(user);
+
+        Assert.assertEquals(app.getHeaderAfterLogon(), "MY ACCOUNT");
+    }
+
+    @Test (dataProvider = "data-provider", dataProviderClass = DataProviders.class)
+    public void createAnAccountRequiredFieldsOnly(User user) throws InterruptedException {
+
+        app.registerNewUserAllFieldRequiredFieldsOnly(user);
 
         Assert.assertEquals(app.getHeaderAfterLogon(), "MY ACCOUNT");
     }

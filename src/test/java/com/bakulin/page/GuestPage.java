@@ -12,8 +12,10 @@ public class GuestPage extends Page {
         PageFactory.initElements(driver, this);
     }
 
-    public void open() {
+    public GuestPage open() {
+
         driver.get("http://automationpractice.com/");
+        return this;
     }
 
     public void goToAuthenticationPage()
