@@ -3,35 +3,72 @@ package com.bakulin.app;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
-
-import java.sql.Time;
-import java.util.Date;
 import org.testng.annotations.Test;
 
-public class AppTest {
+public class RegistrationTests extends TestBase {
 
-    private WebDriver driver;
-    private Wait<WebDriver> wait;
+    @Test (dataProvider = "data-provider", dataProviderClass = DataProviders.class) // Marking this method as part of the test
+    public void createAnAccount(User User) throws InterruptedException {
 
-    @BeforeClass // Runs this method before the first test method in the current class is invoked
-    public void setUp() {
-        ChromeOptions option = new ChromeOptions();
-        option.addArguments("--start-maximized");
-        // Create a new instance of the Firefox driver
 
-        driver = new ChromeDriver(option);
-        wait = new WebDriverWait(driver, 5, 1000);
+        //Переход на главную страницу
+        goToHomePage();
+        //Переход на форму входа\регистрации
+        goToSignIn();
+        //Ввод почты для регистрации
+        inputEmailForRegister(User.getEmail());
+        //Thread.sleep(5000);
+        //Указание гендерной принадлежности
+        inputGender();
+        //Фамилия
+        inputFirstName(User.getFirstname());
+        //Имя
+        inputLastName(User.getLastname());
+        //Пароль
+        inputPasswd(User.getPassword());
+        //Дата рождения
+        inputDateOfBirth();
+
+        driver.findElement(By.id("newsletter")).click();
+        driver.findElement(By.id("optin")).click();
+
+        inputFirstNameAddres(User.getFirstname());
+        inputLastNameAddres(User.getLastname());
+
+        inputCompany(User.getCompany());
+
+        inputAddress(User.getAddress());
+
+        inputAddresstwo(User.getAddresstwo());
+
+        inputCity(User.getCity());
+
+        inputState();
+
+        inputPostcode(User.getPostcode());
+
+        inputCountry();
+
+        inputOther(User.getAdditional());
+
+        inputPhoneHome(User.getPhonehome());
+
+        inputPhoneMobile(User.getPhonemobile());
+
+        inputAlias(User.getAlias());
+
+        register();
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("h1.page-heading")));
+        String header = driver.findElement(By.cssSelector("h1.page-heading")).getText();
+        // Verify that header equals "Selenium WebDriver"
+        Assert.assertEquals(header, "MY ACCOUNT");
+        //Thread.sleep(10000);
     }
+
 
     public void goToHomePage()
     {
@@ -115,6 +152,11 @@ public class AppTest {
         driver.findElement(By.id("address1")).sendKeys(address);
     }
 
+    public void inputAddresstwo(String address){
+        driver.findElement(By.id("address2")).clear();
+        driver.findElement(By.id("address2")).sendKeys(address);
+    }
+
     public void inputCity(String city){
         driver.findElement(By.id("city")).clear();
         driver.findElement(By.id("city")).sendKeys(city);
@@ -149,7 +191,7 @@ public class AppTest {
     }
 
 
-    public void inputPhone(String phone){
+    public void inputPhoneHome(String phone){
         driver.findElement(By.id("phone")).clear();
         driver.findElement(By.id("phone")).sendKeys(phone);
     }
@@ -166,93 +208,6 @@ public class AppTest {
 
     public void register(){
         driver.findElement(By.id("submitAccount")).click();
-    }
-
-    @DataProvider(name = "data-provider")
-    public Object[][] dataProviderMethod() {
-        Date date = new Date();
-        //String email = date.toString().replace(' ', '_').replace(':', '_') + "@test.test";
-        String email = "test_" + System.currentTimeMillis() +  "@test.test";
-        return new Object[][] { { email } };
-    }
-
-    @Test (dataProvider = "data-provider") // Marking this method as part of the test
-    public void createAnAccount(String email) throws InterruptedException {
-        //Переход на главную страницу
-        goToHomePage();
-        //Переход на форму входа\регистрации
-        goToSignIn();
-        //Ввод почты для регистрации
-        inputEmailForRegister(email);
-        //Thread.sleep(5000);
-        //Указание гендерной принадлежности
-        inputGender();
-        //Фамилия
-        inputFirstName("Фамилия");
-        //Имя
-        inputLastName("Имя");
-        //Пароль
-        inputPasswd("Пароль");
-        //Дата рождения
-        inputDateOfBirth();
-
-        driver.findElement(By.id("newsletter")).click();
-        driver.findElement(By.id("optin")).click();
-
-        inputFirstNameAddres("Фамилия");
-        inputLastNameAddres("Имя");
-
-        inputCompany("Компания");
-
-        inputAddress("Волгоград");
-
-        inputCompany("Sperasoft");
-
-        inputCity("Volgograd");
-
-        inputState();
-
-        inputPostcode("66666");
-
-        inputCountry();
-
-        inputOther("Другое");
-
-        inputPhone("666666");
-
-        inputPhoneMobile("666666");
-
-        inputAlias("Alias");
-
-        register();
-
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("h1.page-heading")));
-        String header = driver.findElement(By.cssSelector("h1.page-heading")).getText();
-        // Verify that header equals "Selenium WebDriver"
-        Assert.assertEquals(header, "MY ACCOUNT");
-        //Thread.sleep(10000);
-
-
-    }
-    /*
-        @Test // Marking this method as part of the test
-        public void gotoSeleniumWikiPageFailure() {
-            // Go to the Wikipedia home page
-            driver.get("https://en.wikipedia.org/");
-            // Find the text input element by its id and type "Selenium"
-            driver.findElement(By.id("searchInput")).sendKeys("Selenium");
-            // Click search button
-            driver.findElement(By.id("searchButton")).click();
-            // Get text from header of the Selenium page
-            String header = driver.findElement(By.id("firstHeading")).getText();
-            // Verify that header equals "Selenium WebDriver"
-            Assert.assertEquals(header, "Selenium Webdriver");
-        }
-    */
-    @AfterClass // Runs this method after all the test methods in the current class have been run
-    public void tearDown() {
-        // Close all browser windows and safely end the session
-        driver.quit();
     }
 
     public WebElement myClickId(String locator) throws InterruptedException {
