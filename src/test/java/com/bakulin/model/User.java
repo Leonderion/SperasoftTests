@@ -1,8 +1,15 @@
 package com.bakulin.model;
 
 public class User {
+
     private String firstname;
     private String lastname;
+    private String gender;
+    private String dayOfBirth;
+    private String mouthOfBirth;
+    private String yearOfBirth;
+    private String state;
+    private String country;
     private String email;
     private String password;
     private String company;
@@ -19,25 +26,29 @@ public class User {
         return new User().new Builder();
     }
 
-    public String getFirstname() {
-        return firstname;
-    }
+    public String getFirstname() { return firstname; }
 
-    public String getLastname() {
-        return lastname;
-    }
+    public String getLastname() { return lastname; }
+
+    public String getGender() { return gender; }
+
+    public String getDayOfBirth() { return dayOfBirth; }
+
+    public String getMouthOfBirth() { return mouthOfBirth; }
+
+    public String getYearOfBirth() { return yearOfBirth; }
+
+    public String getState() { return state; }
+
+    public String getCountry() { return country; }
 
     public String getEmail() {
         return email;
     }
 
-    public String getPassword() {
-        return password;
-    }
+    public String getPassword() { return password; }
 
-    public String getCompany() {
-        return company;
-    }
+    public String getCompany() { return company; }
 
     public String getAddress() {
         return address;
@@ -75,6 +86,12 @@ public class User {
         private Builder() {}
         public Builder withFirstname(String firstname) { User.this.firstname = firstname; return this; }
         public Builder withLastname(String lastname) { User.this.lastname = lastname; return this; }
+        public Builder withGender(String gender) { User.this.gender = gender; return this; }
+        public Builder withDayOfBirth(String dayOfBirth) { User.this.dayOfBirth = dayOfBirth; return this; }
+        public Builder withMouthOfBirth(String mouthOfBirth) { User.this.mouthOfBirth = mouthOfBirth; return this; }
+        public Builder withYearOfBirth(String yearOfBirth) { User.this.yearOfBirth = yearOfBirth; return this; }
+        public Builder withCountry(String country) { User.this.country = country; return this; }
+        public Builder withState(String state) { User.this.state = state; return this; }
         public Builder withEmail(String email) { User.this.email = email; return this; }
         public Builder withPassword(String password) { User.this.password = password; return this; }
         public Builder withCompany(String company) { User.this.company = company; return this; }
