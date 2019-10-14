@@ -1,0 +1,7 @@
+<suite name="Test Suite" parallel="tests" thread-count="1" verbose="1" >
+    <test name="Registers" group-by-instances="false">
+        <classes>
+            <class name="com.bakulin.tests.RegistrationTests" />
+        </classes>
+    </test>
+</suite>
